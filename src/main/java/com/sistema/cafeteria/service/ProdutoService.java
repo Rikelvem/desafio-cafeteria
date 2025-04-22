@@ -19,7 +19,19 @@ public class ProdutoService {
         return repository.findAll();
     }
 
+    public Produto buscarPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+    }
+
     public Produto salvar(Produto produto) {
+        return repository.save(produto);
+    }
+
+    public Produto atualizar(Long id, Produto produtoAtualizado) {
+        Produto produto = buscarPorId(id);
+        produto.setNome(produtoAtualizado.getNome());
+        produto.setPreco(produtoAtualizado.getPreco());
         return repository.save(produto);
     }
 
