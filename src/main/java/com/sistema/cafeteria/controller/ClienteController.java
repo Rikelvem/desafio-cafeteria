@@ -2,6 +2,7 @@ package com.sistema.cafeteria.controller;
 
 import com.sistema.cafeteria.model.Cliente;
 import com.sistema.cafeteria.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criar (@RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> criar (@RequestBody @Valid Cliente cliente) {
         Cliente novoCliente = service.criar(cliente);
         return ResponseEntity.ok(novoCliente);
     }
@@ -41,7 +42,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody @Valid Cliente clienteAtualizado) {
         Cliente atualizado = service.atualizar(id, clienteAtualizado);
         return ResponseEntity.ok(atualizado);
     }

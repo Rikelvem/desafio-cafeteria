@@ -2,6 +2,7 @@ package com.sistema.cafeteria.controller;
 
 import com.sistema.cafeteria.model.Categoria;
 import com.sistema.cafeteria.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +35,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria criar(@RequestBody Categoria categoria) {
+    public Categoria criar(@RequestBody @Valid Categoria categoria) {
         return service.criar(categoria);
     }
 
     @PutMapping("/{id}")
-    public Categoria atualizar(@PathVariable Long id, @RequestBody Categoria categoriaAtualizada) {
+    public Categoria atualizar(@PathVariable Long id, @RequestBody @Valid Categoria categoriaAtualizada) {
         return service.atualizar(id, categoriaAtualizada);
     }
 

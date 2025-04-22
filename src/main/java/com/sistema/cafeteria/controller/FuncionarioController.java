@@ -2,6 +2,7 @@ package com.sistema.cafeteria.controller;
 
 import com.sistema.cafeteria.model.Funcionario;
 import com.sistema.cafeteria.service.FuncionarioService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +35,12 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public Funcionario criar(@RequestBody Funcionario funcionario) {
+    public Funcionario criar(@RequestBody @Valid Funcionario funcionario) {
         return service.criar(funcionario);
     }
 
     @PutMapping("/{id}")
-    public Funcionario atualizar(@PathVariable Long id, @RequestBody Funcionario funcionarioAtualizado) {
+    public Funcionario atualizar(@PathVariable Long id, @RequestBody @Valid Funcionario funcionarioAtualizado) {
         return service.atualizar(id, funcionarioAtualizado);
     }
 
