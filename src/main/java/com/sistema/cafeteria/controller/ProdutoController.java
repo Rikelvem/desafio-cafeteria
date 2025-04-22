@@ -1,8 +1,12 @@
 package com.sistema.cafeteria.controller;
 
+import com.sistema.cafeteria.dto.request.ProdutoRequestDTO;
+import com.sistema.cafeteria.dto.response.ProdutoResponseDTO;
 import com.sistema.cafeteria.model.Produto;
 import com.sistema.cafeteria.service.ProdutoService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,28 +29,29 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<Produto> listar() {
-        return service.listar();
+    public ResponseEntity<List<ProdutoResponseDTO>> listar() {
+        return ResponseEntity.ok(service.listar());
     }
 
     @GetMapping("/{id}")
-    public Produto buscarPorId(@PathVariable Long id) {
-        return service.buscarPorId(id);
+    public ResponseEntity<ProdutoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
     @PostMapping
-    public Produto criar(@RequestBody @Valid Produto produto) {
-        return service.salvar(produto);
+    public ResponseEntity<ProdutoResponseDTO> criar(@RequestBody @Valid ProdutoRequestDTO produto) {
+        return ResponseEntity.ok(service.criar(produto));
     }
 
-    @PutMapping
-    public Produto atualizar(@PathVariable Long id ,@RequestBody @Valid Produto produto) {
-        return service.atualizar(id, produto);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable Long id ,@RequestBody @Valid ProdutoRequestDTO produto) {
+        return ResponseEntity.ok(service.atualizar(id, produto));
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
