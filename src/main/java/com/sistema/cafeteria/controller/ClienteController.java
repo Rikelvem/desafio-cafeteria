@@ -21,7 +21,7 @@ public class ClienteController {
 
     private final ClienteService service;
 
-    private ClienteController (ClienteService service) {
+    public ClienteController (ClienteService service) {
         this.service = service;
     }
 
