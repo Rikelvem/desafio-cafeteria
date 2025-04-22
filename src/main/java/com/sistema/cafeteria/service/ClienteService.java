@@ -1,5 +1,6 @@
 package com.sistema.cafeteria.service;
 
+import com.sistema.cafeteria.exception.ResourceNotFoundException;
 import com.sistema.cafeteria.model.Cliente;
 import com.sistema.cafeteria.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class ClienteService {
 
     public Cliente buscarPorId(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com ID: " + id));
     }
 
     public Cliente criar(Cliente cliente) {
