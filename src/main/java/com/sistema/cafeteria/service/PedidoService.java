@@ -24,6 +24,11 @@ public class PedidoService {
         return pedidoRepository.findAll();
     }
 
+    public Pedido buscarPorId(Long id) {
+        return pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado com ID: " + id));
+    }
+
     public Pedido criar(Pedido pedido) {
         for (ItemPedido item : pedido.getItens()) {
             item.setPedido(pedido);
@@ -34,6 +39,19 @@ public class PedidoService {
 
             item.setProduto(produto); // agora tem preço!
         }
+
+        double total = pedido.getItens().stream()
+                .mapToDouble(item -> item.getProduto().getPreco() * item.getQuantidade())
+                .sum();
+
+        pedido.setTotal(total);
+
+        return pedidoRepository.save(pedido);
+    }
+
+    public Pedido atualizar(Long id, Pedido pedidoAtualizado) {
+        Pedido pedido = buscarPorId(id);
+        pedido.setItens(pedidoAtualizado.getItens());
 
         double total = pedido.getItens().stream()
                 .mapToDouble(item -> item.getProduto().getPreco() * item.getQuantidade())
