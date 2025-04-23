@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PedidoReponseDTO {
+public class PedidoResponseDTO {
 
     private Long id;
     private String nomeCliente;
@@ -23,8 +23,8 @@ public class PedidoReponseDTO {
     public static class ItemPedidoDTO {
         private Long produtoId;
         private String nomeProduto;
-        private Integer quantidade;
         private Double precoUnitario;
+        private Integer quantidade;
     }
 
 }
