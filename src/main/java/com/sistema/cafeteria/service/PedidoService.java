@@ -28,8 +28,11 @@ public class PedidoService {
         this.clienteRepository = clienteRepository;
     }
 
-    public List<Pedido> listar(){
-        return pedidoRepository.findAll();
+    public List<PedidoResponseDTO> listar(){
+        return pedidoRepository.findAll()
+                .stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
     }
 
     public Pedido buscarPorId(Long id) {

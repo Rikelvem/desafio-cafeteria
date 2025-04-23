@@ -28,7 +28,7 @@ public class PedidoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> listar() {
+    public ResponseEntity<List<PedidoResponseDTO>> listar() {
         return ResponseEntity.ok(service.listar());
     }
 
