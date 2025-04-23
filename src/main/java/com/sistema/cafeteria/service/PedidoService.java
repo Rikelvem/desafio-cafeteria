@@ -13,11 +13,11 @@ import java.util.List;
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
-    private final ProdutoRepository produtoRepository; // Adiciona o repositório do Produto
+    private final ProdutoRepository produtoRepository;
 
     public PedidoService(PedidoRepository pedidoRepository, ProdutoRepository produtoRepository) {
         this.pedidoRepository = pedidoRepository;
-        this.produtoRepository = produtoRepository; // Injeção de dependência do ProdutoRepository
+        this.produtoRepository = produtoRepository;
     }
 
     public List<Pedido> listar(){
@@ -33,11 +33,10 @@ public class PedidoService {
         for (ItemPedido item : pedido.getItens()) {
             item.setPedido(pedido);
 
-            // Agora usando o ProdutoRepository para buscar o Produto pelo ID
             Produto produto = produtoRepository.findById(item.getProduto().getId())
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado: ID " + item.getProduto().getId()));
 
-            item.setProduto(produto); // agora tem preço!
+            item.setProduto(produto);
         }
 
         double total = pedido.getItens().stream()
