@@ -93,7 +93,8 @@ public class PedidoService {
             return itemPedido;
         }).collect(Collectors.toList());
 
-        pedidoExistente.setItens(itens);
+        pedidoExistente.getItens().clear();
+        pedidoExistente.getItens().addAll(itens);
 
         double total = itens.stream()
                 .mapToDouble(item -> item.getProduto().getPreco() * item.getQuantidade())
