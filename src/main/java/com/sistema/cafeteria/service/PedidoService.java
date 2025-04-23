@@ -35,7 +35,13 @@ public class PedidoService {
                 .collect(Collectors.toList());
     }
 
-    public Pedido buscarPorId(Long id) {
+    public PedidoResponseDTO buscarPorId(Long id) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com ID: " + id));
+        return mapToResponseDTO(pedido);
+    }
+
+    private Pedido buscarPedidoEntityById(Long id) {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com ID: " + id));
     }
@@ -70,7 +76,7 @@ public class PedidoService {
     }
 
     public PedidoResponseDTO atualizar(Long id, PedidoRequestDTO pedidoRequestDTO) {
-        Pedido pedidoExistente = buscarPorId(id);
+        Pedido pedidoExistente = buscarPedidoEntityById(id);
 
         Cliente cliente = clienteRepository.findById(pedidoRequestDTO.getClienteId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com ID: " + pedidoRequestDTO.getClienteId()));
