@@ -1,7 +1,9 @@
 package com.sistema.cafeteria.dto.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -14,11 +16,13 @@ public class PedidoRequestDTO {
     private Long clienteId;
 
     @NotNull(message = "A lista de itens é obrigatória")
-    private List<ItemPedidoDTO> itens;
+    private List<ItemPedidoRequestDTO> itens;
 
     @Getter
     @Setter
-    public static class ItemPedidoDTO {
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ItemPedidoRequestDTO {
         @NotNull(message = "ID do produto é obrigatório")
         private Long produtoId;
 

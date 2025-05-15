@@ -28,4 +28,11 @@ public class Cliente {
     private String email;
 
     private String telefone;
+
+    public Cliente(Long id, String nome, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+    }
+
 }
